@@ -5,11 +5,7 @@ import * as cwlogs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
 interface ECommerceApiStackProps extends cdk.StackProps {
-<<<<<<< HEAD
-  productsFatchHandler: lambdaNodeJS.NodejsFunction;
-=======
   productsFetchHandler: lambdaNodeJS.NodejsFunction;
->>>>>>> bd546e7 (build: first commit)
 }
 export class ECommerceApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: ECommerceApiStackProps) {
@@ -35,11 +31,7 @@ export class ECommerceApiStack extends cdk.Stack {
     });
 
     const productsFetchIntegration = new apigateway.LambdaIntegration(
-<<<<<<< HEAD
-      props.productsFatchHandler,
-=======
       props.productsFetchHandler,
->>>>>>> bd546e7 (build: first commit)
     );
 
     const productsResource = api.root.addResource('products');
