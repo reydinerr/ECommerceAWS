@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+<<<<<<< HEAD
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { ECommerceAwsStack } from "../lib/e_commerce_aws-stack";
@@ -16,3 +17,32 @@ new ECommerceAwsStack(app, "ECommerceAwsStack", {
   // env: { account: '123456789012', region: 'us-east-1' },
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+=======
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { ProductsAppStack } from '../lib/productsApp-stack';
+import { ECommerceApiStack } from '../lib/ecommerceApi-stack';
+
+const app = new cdk.App();
+const env: cdk.Environment = {
+  account: '777608088981',
+  region: 'us-east-1',
+};
+
+const tags = {
+  cost: 'ECommerce',
+  team: 'SiecolaCode',
+};
+
+const productsAppStack = new ProductsAppStack(app, 'ProductsApp', {
+  tags: tags,
+  env: env,
+});
+
+const eCommerceApiStack = new ECommerceApiStack(app, 'ECommerceApi', {
+  productsFetchHandler: productsAppStack.productsFetchHandler,
+  tags: tags,
+  env: env,
+});
+eCommerceApiStack.addDependency(productsAppStack);
+>>>>>>> bd546e7 (build: first commit)
