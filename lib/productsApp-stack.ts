@@ -3,10 +3,10 @@ import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 //https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
 import { Construct } from 'constructs';
-import { strict } from 'assert';
 
 export class ProductsAppStack extends cdk.Stack {
   readonly productsFetchHandler: lambdaNodeJS.NodejsFunction;
+  readonly productsAdminHandler: lambdaNodeJS.NodejsFunction;
   readonly productsDbd: dynamodb.Table;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -36,7 +36,30 @@ export class ProductsAppStack extends cdk.Stack {
           minify: true,
           sourceMap: false,
         },
+        environment: {
+          PRODUCTS_DDB: this.productsDbd.tableName,
+        },
       },
     );
+    this.productsDbd.grantReadData(this.productsFetchHandler);
+    this.productsAdminHandler = new lambdaNodeJS.NodejsFunction(
+      this,
+      'ProductsAdminFunction',
+      {
+        functionName: 'ProductsAdminFunction',
+        entry: 'lambda/products/productsAdminFunction.ts',
+        handler: 'handler',
+        memorySize: 128,
+        timeout: cdk.Duration.seconds(5),
+        bundling: {
+          minify: true,
+          sourceMap: false,
+        },
+        environment: {
+          PRODUCTS_DDB: this.productsDbd.tableName,
+        },
+      },
+    );
+    this.productsDbd.grantWriteData(this.productsAdminHandler);
   }
 }
