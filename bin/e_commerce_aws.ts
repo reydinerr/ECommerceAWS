@@ -13,7 +13,7 @@ const env: cdk.Environment = {
 
 const tags = {
   cost: 'ECommerce',
-  team: 'SiecolaCode',
+  team: 'nuageIT',
 };
 
 const productsAppLayersStack = new ProductsAppLayersStack(app, 'productsAppLayers', {
@@ -25,7 +25,7 @@ const productsAppStack = new ProductsAppStack(app, 'ProductsApp', {
   tags: tags,
   env: env,
 });
-productsAppStack.addDependency(productsAppLayersStack)
+productsAppStack.addDependency(productsAppLayersStack);
 
 const eCommerceApiStack = new ECommerceApiStack(app, 'ECommerceApi', {
   productsFetchHandler: productsAppStack.productsFetchHandler,
