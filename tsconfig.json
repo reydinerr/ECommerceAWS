@@ -21,7 +21,7 @@
     "baseUrl": "./",
     "paths": {
       "/opt/nodejs/productsLayer": [
-        "lambda/products/Layers/products/nodejs/productRepository"
+        "lambda/products/Layers/productsLayer/nodejs/productRepository"
       ]
     }
   },
