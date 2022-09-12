@@ -36,6 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "aws-cdk-lib": "^2.41.0",
+    "aws-xray-sdk": "^3.3.7",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
   }
