@@ -16,10 +16,14 @@ const tags = {
   team: 'nuageIT',
 };
 
-const productsAppLayersStack = new ProductsAppLayersStack(app, 'productsAppLayers', {
-  tags: tags,
-  env: env,
-});
+const productsAppLayersStack = new ProductsAppLayersStack(
+  app,
+  'productsAppLayers',
+  {
+    tags: tags,
+    env: env,
+  },
+);
 
 const productsAppStack = new ProductsAppStack(app, 'ProductsApp', {
   tags: tags,
