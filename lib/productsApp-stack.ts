@@ -4,7 +4,7 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 //https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
 import { Construct } from 'constructs';
-import * as ssm from "aws-cdk-lib/aws-ssm"
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 
 export class ProductsAppStack extends cdk.Stack {
   readonly productsFetchHandler: lambdaNodeJS.NodejsFunction;
@@ -26,8 +26,15 @@ export class ProductsAppStack extends cdk.Stack {
       writeCapacity: 1,
     });
     //Products Layer
-    const productsLayerArn = ssm.StringParameter.valueForStringParameter(this, "ProductsLayerVersionArn")
-    const productsLayer = lambda.LayerVersion.fromLayerVersionArn(this,"ProductsLayerVersionArn", productsLayerArn)
+    const productsLayerArn = ssm.StringParameter.valueForStringParameter(
+      this,
+      'ProductsLayerVersionArn',
+    );
+    const productsLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      'ProductsLayerVersionArn',
+      productsLayerArn,
+    );
     this.productsFetchHandler = new lambdaNodeJS.NodejsFunction(
       this,
       'ProductsFetchFunction',
@@ -44,7 +51,8 @@ export class ProductsAppStack extends cdk.Stack {
         environment: {
           PRODUCTS_DDB: this.productsDbd.tableName,
         },
-        layers: [productsLayer]
+        layers: [productsLayer],
+        tracing: lambda.Tracing.ACTIVE,
       },
     );
     this.productsDbd.grantReadData(this.productsFetchHandler);
@@ -64,7 +72,8 @@ export class ProductsAppStack extends cdk.Stack {
         environment: {
           PRODUCTS_DDB: this.productsDbd.tableName,
         },
-        layers: [productsLayer]
+        layers: [productsLayer],
+        tracing: lambda.Tracing.ACTIVE,
       },
     );
     this.productsDbd.grantWriteData(this.productsAdminHandler);
