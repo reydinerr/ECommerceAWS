@@ -21,7 +21,7 @@
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
     "@types/uuid": "^8.3.4",
-    "aws-cdk": "2.37.1",
+    "aws-cdk": "^2.37.1",
     "aws-sdk": "^2.1193.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^6.15.0",
