@@ -110,5 +110,6 @@ export class ProductsAppStack extends cdk.Stack {
     );
     this.productsDbd.grantWriteData(this.productsAdminHandler);
     productEventsHandler.grantInvoke(this.productsAdminHandler);
+    
   }
 }
