@@ -4,6 +4,7 @@ import { Construct } from 'constructs'
 
 export class EventsDdbStack extends cdk.Stack {
   readonly table: dynamodb.Table
+  
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
